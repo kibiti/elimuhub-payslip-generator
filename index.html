@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELIMUHUB - Weekly Payslip Generator</title>
+    <meta name="description" content="Professional weekly payslip generator for Elimuhub teachers with automatic calculations and contract compliance">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <div class="company-name">ELIMUHUB EDUCATION CONSULTANTS</div>
+                    <div class="document-title">Weekly Tutor Payslip Generator</div>
+                </div>
+            </div>
+            <p>Fill out the form to generate professional payslips for your tutors</p>
+        </header>
+        
+        <div class="app-container">
+            <div class="form-container">
+                <div class="section-title">
+                    <i class="fas fa-edit"></i>
+                    <span>Payslip Information</span>
+                </div>
+                
+                <form id="payslipForm">
+                    <div class="form-group">
+                        <label for="weekEnding">Week Ending</label>
+                        <input type="date" id="weekEnding" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tutorName">Tutor Name</label>
+                            <input type="text" id="tutorName" placeholder="Enter tutor name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentLocation">Student / Location</label>
+                            <input type="text" id="studentLocation" placeholder="Student name and location" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="subjects">Subjects Taught</label>
+                            <input type="text" id="subjects" placeholder="Subjects taught" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sessionsCompleted">Sessions Completed</label>
+                            <input type="number" id="sessionsCompleted" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-calculator"></i>
+                        <span>Earnings</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ratePerHour">Rate per Hour (KSh)</label>
+                            <input type="number" id="ratePerHour" min="0" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hoursCompleted">Hours Completed</label>
+                            <input type="number" id="hoursCompleted" min="0" step="0.5" required>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Deductions</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="transportAdvance1">Transport Advance Recovery (1 of 2)</label>
+                            <input type="number" id="transportAdvance1" min="0" step="0.01" value="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transportAdvance2">Transport Advance Recovery (2 of 2)</label>
+                            <input type="number" id="transportAdvance2" min="0" step="0.01" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="securityDeposit">Security Deposit Held</label>
+                            <input type="number" id="securityDeposit" min="0" step="0.01" value="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="penalties">Penalties (if any)</label>
+                            <input type="number" id="penalties" min="0" step="0.01" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="otherAdjustments">Other Adjustments</label>
+                        <input type="number" id="otherAdjustments" min="0" step="0.01" value="0">
+                        <input type="text" id="otherAdjustmentsNotes" placeholder="Notes for adjustments" style="margin-top: 8px;">
+                    </div>
+                    
+                    <div class="section-title">
+                        <i class="fas fa-money-check-alt"></i>
+                        <span>Payment Details</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="paymentStatus">Payment Status</label>
+                            <select id="paymentStatus">
+                                <option value="Pending">Pending</option>
+                                <option value="Processed">Processed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select id="paymentMethod">
+                                <option value="Airtel Money">Airtel Money</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="M-Pesa">M-Pesa</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="paymentDate">Payment Date</label>
+                            <input type="date" id="paymentDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transactionRef">Transaction Reference</label>
+                            <input type="text" id="transactionRef" placeholder="Transaction reference">
+                        </div>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button type="button" id="generateBtn" class="btn btn-primary">
+                            <i class="fas fa-file-invoice"></i>
+                            Generate Payslip
+                        </button>
+                        <button type="button" id="resetBtn" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i>
+                            Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="preview-container">
+                <div class="section-title">
+                    <i class="fas fa-eye"></i>
+                    <span>Payslip Preview</span>
+                </div>
+                
+                <div class="payslip-preview" id="payslipPreview">
+                    <div class="payslip-header">
+                        <div class="company-name">ELIMUHUB EDUCATION CONSULTANTS</div>
+                        <div class="document-title">Weekly Tutor Payslip</div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div>
+                            <p><strong>Week Ending:</strong> <span id="previewWeekEnding">____ / ____ / 2025</span></p>
+                            <p><strong>Tutor Name:</strong> <span id="previewTutorName">____________________</span></p>
+                            <p><strong>Student / Location:</strong> <span id="previewStudentLocation">____________________</span></p>
+                        </div>
+                        <div>
+                            <p><strong>Subjects Taught:</strong> <span id="previewSubjects">____________________</span></p>
+                            <p><strong>Sessions Completed:</strong> <span id="previewSessions">____</span></p>
+                            <p><strong>Hours Completed:</strong> <span id="previewHours">____ hrs</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">1. Earnings</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th class="amount">Amount (KSh)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rate per Hour</td>
+                                <td class="amount" id="previewRate">____</td>
+                            </tr>
+                            <tr>
+                                <td>Total Hours</td>
+                                <td class="amount" id="previewTotalHours">____</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Gross Weekly Earnings</strong></td>
+                                <td class="amount" id="previewGrossEarnings">____</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="section-title">2. Deductions (Contract-Based)</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Deduction Item</th>
+                                <th class="amount">Amount (KSh)</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transport Advance Recovery (1 of 2)</td>
+                                <td class="amount" id="previewTransport1">____</td>
+                                <td>If applicable</td>
+                            </tr>
+                            <tr>
+                                <td>Transport Advance Recovery (2 of 2)</td>
+                                <td class="amount" id="previewTransport2">____</td>
+                                <td>If applicable</td>
+                            </tr>
+                            <tr>
+                                <td>Security Deposit Held</td>
+                                <td class="amount" id="previewSecurity">____</td>
+                                <td>One day's pay held once, not weekly</td>
+                            </tr>
+                            <tr>
+                                <td>Penalties (if any)</td>
+                                <td class="amount" id="previewPenalties">____</td>
+                                <td>Late arrival / unexcused absence</td>
+                            </tr>
+                            <tr>
+                                <td>Other Adjustments</td>
+                                <td class="amount" id="previewOther">____</td>
+                                <td id="previewOtherNotes">____</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Total Deductions</strong></td>
+                                <td class="amount" id="previewTotalDeductions">____</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="section-title">3. Net Pay Calculation</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th class="amount">Amount (KSh)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Gross Earnings</td>
+                                <td class="amount" id="previewGross">____</td>
+                            </tr>
+                            <tr>
+                                <td>Minus Total Deductions</td>
+                                <td class="amount" id="previewDeductions">____</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Net Weekly Pay</strong></td>
+                                <td class="amount" id="previewNetPay">____</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="section-title">4. Payment Details</div>
+                    <div class="info-section">
+                        <div>
+                            <p><strong>Payment Status:</strong> <span id="previewPaymentStatus">Pending</span></p>
+                            <p><strong>Payment Method:</strong> <span id="previewPaymentMethod">Airtel Money</span></p>
+                        </div>
+                        <div>
+                            <p><strong>Payment Date:</strong> <span id="previewPaymentDate">Friday ___ / ___ / 2025</span></p>
+                            <p><strong>Transaction Reference:</strong> <span id="previewTransactionRef">____________________</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">5. Compliance Notes (Per Contract)</div>
+                    <div class="notes-section">
+                        <ul>
+                            <li>Payment is released only after client confirms satisfactory attendance & performance.</li>
+                            <li>All payments must be processed exclusively through Elimuhub.</li>
+                            <li>Any direct deals with clients lead to immediate termination and forfeiture of security deposit.</li>
+                            <li>Security deposit is only released after full contract completion with zero breaches.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="confirmation-section">
+                        <div class="prepared-by">
+                            <div class="section-title">Prepared By:</div>
+                            <p>Elimuhub Education Consultants – Finance & Administration</p>
+                            <div class="contact-info">
+                                <p>📞 0731 838387</p>
+                                <p>✉️ elimuhubconsultant@gmail.com</p>
+                                <p>🌐 elimuhub.simdif.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tutor-acknowledgment">
+                            <div class="section-title">Tutor Acknowledgment:</div>
+                            <p>I confirm that the information above is accurate and reflects services rendered.</p>
+                            <div class="signature-line">
+                                <p>Signature: ____________________</p>
+                                <p>Date: <span id="previewSignatureDate">____ / ____ / 2025</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer">
+                        <p>This payslip is computer-generated and does not require a physical signature.</p>
+                    </div>
+                </div>
+                
+                <div class="buttons no-print">
+                    <button type="button" id="printBtn" class="btn btn-primary">
+                        <i class="fas fa-print"></i>
+                        Print Payslip
+                    </button>
+                    <button type="button" id="newPayslipBtn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i>
+                        New Payslip
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <p>&copy; 2025 Elimuhub Education Consultants. All rights reserved.</p>
+            <p>Professional payslip generator for tutors | Streamlined payroll management</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
